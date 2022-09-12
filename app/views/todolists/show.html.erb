@@ -14,3 +14,106 @@
 </div>
 <%= link_to "削除", destroy_todolist_path(@list.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
 <%= link_to "編集", edit_todolist_path(@list.id) %>
+
+
+  <% if user_signed_in? %>
+    <div class="pb-3">
+      <%= link_to user_path(current_user.name_id) do %>
+        <%= image_tag current_user.get_image(100,100), class: 'rounded-circle' %>
+      <% end %>
+    </div>
+
+    <div class="pb-3">
+      <%= link_to user_path(current_user.name_id), class: 'btn btn-lg btn-outline-secondary rounded-pill', style: 'outline: none' do %>
+        <i class="fas fa-user"></i>My Page
+      <% end %>
+    </div>
+    <div class="pb-3">
+      <%= link_to root_path, class: 'btn btn-lg btn-outline-secondary rounded-pill', style: 'outline: none' do %>
+        <i class="fas fa-home"></i>Home
+      <% end %>
+    </div>
+
+    <div class="pb-3">
+      <%= link_to history_user_diaries_path(current_user.name_id), class: 'btn btn-lg btn-outline-secondary rounded-pill', style: 'outline: none' do %>
+        <i class="fas fa-history"></i>History
+      <% end %>
+    </div>
+
+    <div>
+      <%= link_to user_activities_path(current_user.name_id), class: 'btn btn-lg btn-outline-secondary rounded-pill', style: 'outline: none' do %>
+        <span class="<% unless @unread.size == 0 %>text-danger<%end%>"><i class="fas fa-bell"></i>通知<%= @unread.size %></span>
+      <% end %>
+    </div>
+    <% if controller.controller_name == 'homes' %>
+      <div class="pb-3">
+        表示
+      </div>
+      <div class="pb-3">
+        <%= link_to 'いいね', sort_path(word: 'いいね'), class: "btn btn-outline-info rounded-pill" %>
+      </div>
+      <div class="pb-3">
+        <%= link_to 'コメント', sort_path(word: 'コメント'), class: "btn btn-outline-info rounded-pill" %>
+      </div>
+      <div class="pb-3">
+        <%= link_to 'フォロー', sort_path(word: 'フォロー'), class: "btn btn-outline-info rounded-pill" %>
+      </div>
+      <div class="pb-3">
+        <%= link_to 'FF公開限定', sort_path(word: 'FF公開限定'), class: "btn btn-outline-info rounded-pill" %>
+      </div>
+    <% end %>
+  <% elsif admin_signed_in? %>
+    <div class="pb-3">
+      <h4>管理者ログイン中</h4>
+    </div>
+
+  <% else %>
+  <% end %>
+
+  <!--<button type="button" class="btn btn-primary mb-8" data-toggle="modal" data-target="#searchModal">カレンダー検索</button>-->
+
+</div>
+<div class="d-lg-none mb-3">
+  <div class="col-12 row mx-auto p-0">
+
+
+    <% if user_signed_in? %>
+      <div class="col-12 row mx-auto justify-content-around">
+
+        <div>
+          <%= link_to user_path(current_user.name_id) do %>
+            <%= image_tag current_user.get_image(50,50), class: 'rounded-circle' %>
+          <% end %>
+        </div>
+
+        <div>
+          <%= link_to root_path, class: 'btn btn-lg btn-outline-secondary rounded-pill', style: 'outline: none' do %>
+            <i class="fas fa-home"></i>
+          <% end %>
+        </div>
+
+        <div>
+          <%= link_to user_activities_path(current_user.name_id), class: 'btn btn-lg btn-outline-secondary rounded-pill', style: 'outline: none' do %>
+            <span class="<% unless @unread.size == 0 %>text-warning<%end%>"><i class="fas fa-bell"></i></span>
+          <% end %>
+          <% unless @unread.size == 0 %><span class="text-danger activity-count"><%= @unread.size %></span><% end %>
+        </div>
+
+        <div>
+          <%= link_to history_user_diaries_path(current_user.name_id), class: 'btn btn-lg btn-outline-secondary rounded-pill', style: 'outline: none' do %>
+            <i class="fas fa-history"></i>
+          <% end %>
+        </div>
+
+      </div>
+
+    <% elsif admin_signed_in? %>
+      <div class="pb-3">
+        <h4>管理者ログイン中</h4>
+      </div>
+
+    <% else %>
+    <% end %>
+
+    <!--<button type="button" class="btn btn-primary mb-8" data-toggle="modal" data-target="#searchModal">カレンダー検索</button>-->
+  </div>
