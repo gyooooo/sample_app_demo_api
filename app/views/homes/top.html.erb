@@ -11,3 +11,11 @@
     <link href="<%= image_path("apple-touch-icon.png") %>" rel="apple-touch-icon" sizes="180x180" type="image/png" />
     <link href="<%= image_path("android-touch-icon.png") %>" rel="apple-touch-icon" sizes="192x192" type="image/png" />
   </head>
+  
+  <body>
+  <% if user_signed_in? %>
+    <li class="text-secondary px-2 py-1 m-1">
+    <%= link_to user_path(current_user), class: 'nav-link' do %>
+    <i class="fas fa-home"></i>マイページ
+  <% end %>
+  </body
