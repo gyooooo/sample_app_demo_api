@@ -18,4 +18,17 @@
     <%= link_to user_path(current_user), class: 'nav-link' do %>
     <i class="fas fa-home"></i>マイページ
   <% end %>
+  
+    <% if %w[root about].any? {|name| current_page?(send("#{name}_path"))} %>
+    <div class="flash-messages pt-2 bg-white">
+      <span id="notice" class="d-flex justify-content-center"><%= notice %></span>
+      <span id="alert" class="d-flex justify-content-center"><%= alert %></span>
+    </div>
+  <% else %>
+    <div class="flash-messages pt-2 bg-light">
+      <span id="notice" class="d-flex justify-content-center"><%= notice %></span>
+      <span id="alert" class="d-flex justify-content-center"><%= alert %></span>
+    </div>
+  <% end %>
+  <%= yield %>
   </body
